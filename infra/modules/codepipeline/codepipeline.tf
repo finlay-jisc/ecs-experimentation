@@ -186,6 +186,6 @@ EOF
 }
 
 resource "aws_codestarconnections_connection" "codepipline_github_connection" {
-  name          = "${var.project_name}-github_connection-${var.environment}"
+  name          = "${var.project_name}-${var.environment}" # Limited to 32 chars.
   provider_type = "GitHub"
 }

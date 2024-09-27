@@ -45,6 +45,6 @@ resource "aws_codebuild_project" "deploy-docker-image" {
 
   source {
     type      = "CODEPIPELINE"
-    buildspec = "terraform/modules/codepipeline/buildspec/deploy-docker-image.yml"
+    buildspec = "infra/modules/codepipeline/buildspec/deploy-docker-image.yml"
   }
 }

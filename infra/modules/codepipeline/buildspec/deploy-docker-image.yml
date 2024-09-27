@@ -9,10 +9,10 @@ phases:
     commands:
       - echo Building docker image...
       - docker build -t $IMAGE_NAME ./docker/poc
-      - docker tag $IMAGE_NAME:latest $ACCOUNT_ID.dkr.ecr.$DEFAULT_REGION.amazonaws.com/finlay-ecs-experimentation-test:$IMAGE_NAME
-      - docker tag $IMAGE_NAME:latest $ACCOUNT_ID.dkr.ecr.$DEFAULT_REGION.amazonaws.com/finlay-ecs-experimentation-test:$COMMIT_ID
+      - docker tag $IMAGE_NAME:latest $ACCOUNT_ID.dkr.ecr.$DEFAULT_REGION.amazonaws.com/finlay-ecs-experimentation-ecr-test:$IMAGE_NAME
+      - docker tag $IMAGE_NAME:latest $ACCOUNT_ID.dkr.ecr.$DEFAULT_REGION.amazonaws.com/finlay-ecs-experimentation-ecr-test:$COMMIT_ID
   post_build:
     commands:
       - echo Pushing docker image...
-      - docker push $ACCOUNT_ID.dkr.ecr.$DEFAULT_REGION.amazonaws.com/finlay-ecs-experimentation-test:$IMAGE_NAME
-      - docker push $ACCOUNT_ID.dkr.ecr.$DEFAULT_REGION.amazonaws.com/finlay-ecs-experimentation-test:$COMMIT_ID
+      - docker push $ACCOUNT_ID.dkr.ecr.$DEFAULT_REGION.amazonaws.com/finlay-ecs-experimentation-ecr-test:$IMAGE_NAME
+      - docker push $ACCOUNT_ID.dkr.ecr.$DEFAULT_REGION.amazonaws.com/finlay-ecs-experimentation-ecr-test:$COMMIT_ID

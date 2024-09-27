@@ -1,6 +1,7 @@
 locals {
-  project_name = "finlay-ecs-experimentation"
   environment  = terraform.workspace
+  project_name = "finlay-ecs-experimentation"
+  region       = "eu-west-1"
 }
 
 module "vpc" {
@@ -24,7 +25,9 @@ module "ecr" {
 }
 
 module "codepipeline" {
+  count        = local.environment == "test" ? 1 : 0
   source       = "../modules/codepipeline"
   environment  = local.environment
   project_name = local.project_name
+  region       = local.region
 }

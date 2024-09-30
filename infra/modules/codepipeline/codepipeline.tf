@@ -1,3 +1,7 @@
+data "aws_ssm_parameter" "github_codestar_connection_arn" {
+  name = "/finlay-jisc/github-codestar-connection/arn"
+}
+
 resource "aws_codepipeline" "docker-image-codepipeline" {
   name          = "${var.project_name}-docker-image-pipeline-${var.environment}"
   role_arn      = aws_iam_role.codepipeline_role.arn
@@ -22,10 +26,10 @@ resource "aws_codepipeline" "docker-image-codepipeline" {
 
       // options given here: https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-CodestarConnectionSource.html#action-reference-CodestarConnectionSource-config
       configuration = {
-        ConnectionArn        = aws_codestarconnections_connection.codepipeline_github_connection.arn
+        ConnectionArn        = data.aws_ssm_parameter.github_codestar_connection_arn.value
         FullRepositoryId     = "finlay-jisc/ecs-experimentation"
         BranchName           = "master"
-        OutputArtifactFormat = "CODEBUILD_CLONE_REF"
+        OutputArtifactFormat = "CODE_ZIP"
       }
     }
   }
@@ -183,9 +187,4 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
     ]
 }
 EOF
-}
-
-resource "aws_codestarconnections_connection" "codepipeline_github_connection" {
-  name          = "${var.project_name}-${var.environment}" # Limited to 32 chars.
-  provider_type = "GitHub"
 }

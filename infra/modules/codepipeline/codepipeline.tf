@@ -22,7 +22,7 @@ resource "aws_codepipeline" "docker-image-codepipeline" {
 
       // options given here: https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-CodestarConnectionSource.html#action-reference-CodestarConnectionSource-config
       configuration = {
-        ConnectionArn        = aws_codestarconnections_connection.codepipline_github_connection.arn
+        ConnectionArn        = aws_codestarconnections_connection.codepipeline_github_connection.arn
         FullRepositoryId     = "finlay-jisc/ecs-experimentation"
         BranchName           = "master"
         OutputArtifactFormat = "CODEBUILD_CLONE_REF"
@@ -185,7 +185,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 EOF
 }
 
-resource "aws_codestarconnections_connection" "codepipline_github_connection" {
+resource "aws_codestarconnections_connection" "codepipeline_github_connection" {
   name          = "${var.project_name}-${var.environment}" # Limited to 32 chars.
   provider_type = "GitHub"
 }

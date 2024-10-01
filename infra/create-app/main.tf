@@ -15,6 +15,7 @@ module "ecs" {
   source       = "../modules/ecs"
   environment  = local.environment
   project_name = local.project_name
+  region       = local.region
   vpc_id       = module.vpc.vpc_id
 }
 

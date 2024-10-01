@@ -13,6 +13,7 @@ resource "aws_ecs_task_definition" "hello-world" {
   network_mode = "awsvpc"
 
   execution_role_arn = resource.aws_iam_role.ecs-task-exec-role.arn
+  task_role_arn      = resource.aws_iam_role.ecs-task-role.arn
 
   runtime_platform {
     operating_system_family = "LINUX"
@@ -39,9 +40,4 @@ resource "aws_ecs_task_definition" "hello-world" {
       }
     }
   ])
-
-  tags = {
-    "project" : var.project_name,
-    "environment" : var.environment
-  }
 }

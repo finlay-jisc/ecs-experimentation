@@ -1,6 +1,12 @@
 provider "aws" {
   region  = "eu-west-1"
   profile = var.profile
+  default_tags {
+    tags = {
+      "project"     = "finlay-ecs-experimentation"
+      "environment" = terraform.workspace
+    }
+  }
 }
 
 terraform {

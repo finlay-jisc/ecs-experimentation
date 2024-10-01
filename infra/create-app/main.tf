@@ -8,15 +8,17 @@ module "vpc" {
   source         = "../modules/vpc"
   environment    = local.environment
   project_name   = local.project_name
+  region         = local.region
   vpc_cidr_range = var.vpc_cidr_range
 }
 
 module "ecs" {
-  source       = "../modules/ecs"
-  environment  = local.environment
-  project_name = local.project_name
-  region       = local.region
-  vpc_id       = module.vpc.vpc_id
+  source             = "../modules/ecs"
+  environment        = local.environment
+  private_subnet_ids = module.vpc.private_subnet_ids
+  project_name       = local.project_name
+  region             = local.region
+  vpc_id             = module.vpc.vpc_id
 }
 
 module "ecr" {

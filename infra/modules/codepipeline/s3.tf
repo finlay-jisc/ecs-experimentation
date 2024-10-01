@@ -1,8 +1,7 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
   bucket = "${var.project_name}-codepipeline-bucket-${var.environment}"
   tags = {
-    Name    = "${var.project_name}-codepipeline-bucket-${var.environment}"
-    Project = var.project_name
+    Name = "${var.project_name}-codepipeline-bucket-${var.environment}"
   }
 }
 

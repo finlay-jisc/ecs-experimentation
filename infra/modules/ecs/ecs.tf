@@ -4,8 +4,7 @@ resource "aws_service_discovery_private_dns_namespace" "namespace" {
   vpc         = var.vpc_id
 
   tags = {
-    Name    = "${var.project_name}-namespace-${var.environment}",
-    Project = var.project_name
+    Name = "${var.project_name}-namespace-${var.environment}"
   }
 }
 
@@ -27,8 +26,7 @@ resource "aws_service_discovery_service" "discovery-service" {
   }
 
   tags = {
-    Name    = "${var.project_name}-ds-${var.environment}",
-    Project = var.project_name
+    Name = "${var.project_name}-ds-${var.environment}"
   }
 }
 
@@ -48,9 +46,5 @@ resource "aws_ecs_cluster" "ecs" {
 
   service_connect_defaults {
     namespace = aws_service_discovery_private_dns_namespace.namespace.arn
-  }
-
-  tags = {
-    Project = var.project_name
   }
 }

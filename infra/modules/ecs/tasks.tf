@@ -12,8 +12,8 @@ resource "aws_ecs_task_definition" "hello-world" {
 
   network_mode = "awsvpc"
 
-  execution_role_arn = resource.aws_iam_role.ecs-task-exec-role.arn
-  task_role_arn      = resource.aws_iam_role.ecs-task-role.arn
+  execution_role_arn = aws_iam_role.ecs-task-exec-role.arn
+  task_role_arn      = aws_iam_role.ecs-task-role.arn
 
   runtime_platform {
     operating_system_family = "LINUX"
@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "hello-world" {
         "logDriver" : "awslogs",
         "options" : {
           "awslogs-create-group" : "true",
-          "awslogs-group" : "/ecs/hello-world",
+          "awslogs-group" : "${var.project_name}-hello-world-ecs-task-${var.environment}",
           "awslogs-region" : "${var.region}",
           "awslogs-stream-prefix" : "ecs"
         },

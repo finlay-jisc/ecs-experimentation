@@ -17,14 +17,21 @@ module "ecs" {
   environment        = local.environment
   private_subnet_ids = module.vpc.private_subnet_ids
   project_name       = local.project_name
+  public_subnet_ids  = module.vpc.public_subnet_ids
   region             = local.region
+  security_group_id  = module.vpc.task_security_group_id
   vpc_id             = module.vpc.vpc_id
 }
 
 module "ecr" {
-  source       = "../modules/ecr"
-  environment  = local.environment
-  project_name = local.project_name
+  source                 = "../modules/ecr"
+  environment            = local.environment
+  private_route_table_id = module.vpc.private_route_table_id
+  private_subnet_ids     = module.vpc.private_subnet_ids
+  project_name           = local.project_name
+  region                 = local.region
+  task_security_group_id = module.vpc.task_security_group_id
+  vpc_id                 = module.vpc.vpc_id
 }
 
 module "codepipeline" {

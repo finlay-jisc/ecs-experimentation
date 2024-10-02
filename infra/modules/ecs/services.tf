@@ -4,9 +4,11 @@ resource "aws_ecs_service" "hello-world" {
   task_definition        = "${aws_ecs_task_definition.hello-world.id}:${aws_ecs_task_definition.hello-world.revision}"
   enable_execute_command = true
   launch_type            = "FARGATE"
+  desired_count          = 1
 
   network_configuration {
-    subnets = var.private_subnet_ids
+    subnets         = var.public_subnet_ids
+    security_groups = [var.security_group_id]
   }
 
   deployment_circuit_breaker {

@@ -7,8 +7,9 @@ resource "aws_ecs_service" "hello-world" {
   desired_count          = 1
 
   network_configuration {
-    subnets         = var.public_subnet_ids
-    security_groups = [var.security_group_id]
+    assign_public_ip = true
+    subnets          = var.public_subnet_ids
+    security_groups  = [var.security_group_id]
   }
 
   deployment_circuit_breaker {
